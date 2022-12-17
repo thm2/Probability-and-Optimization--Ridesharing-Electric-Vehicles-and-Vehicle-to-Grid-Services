@@ -8,7 +8,6 @@ clc
 p1_start=0.1; dt1=0.25; p1_end=6; p1=linspace(p1_start,p1_end,(p1_end-p1_start)/dt1);
 p2_start=0.1; dt2=0.25; p2_end=6; p2=linspace(p2_start,p2_end,(p2_end-p2_start)/dt2);
 l_start=1; dt3=20; l_end=700; lambda=linspace(l_start,l_end,(l_end-l_start)/dt3);
-% lambda=[1;20;50;200;400;1000;1400;2000];
 
 % simulation parameters
 g1=0.25; m01=3000; mu2=3; theta=20; cc= 10000;
@@ -52,7 +51,8 @@ title('Total expected profit rate vs \lambda')
 
 % code to plot the optimal prices versus arrival rate lambda
 LLL=[]; LINEARINDEX=[]; P1=[]; P2=[];
-% here it extracts the optimal prices from TotExpProfitRate
+
+% extract the optimal prices from TotExpProfitRate
 for LL=1:size(TotExpProfitRate,3);
     [maxValue, linearIndexesOfMaxes] = max(max(TotExpProfitRate(:,:,LL)));
     if min(min(isnan((TotExpProfitRate(:,:,LL)))))~=1 % only the non nan exp. rates (they have at least one max) are kept
@@ -115,7 +115,6 @@ for theta_incr=1:length(theta) %
             
             if lambda1(p1(ii),p2(jj),lambda)<mu1(p1(ii),p2(jj)) % check transp. queue stability condition
                 ER = cc*(1-2*gammainc(lambda2(p1(ii),p2(jj),lambda)/mu2,theta(theta_incr),'upper'));
-%                 ER = cc*(1-2*(igamma(theta(theta_incr),lambda*(p2(jj)/(g1*p1(ii)+p2(jj)))))/gamma(theta(theta_incr)));
                 TotExpProfitRate(ii,jj,lamm)=((1-g1)*lambda1(p1(ii),p2(jj),lambda)*p1(ii)+ ER -lambda2(p1(ii),p2(jj),lambda)*p2(jj))/mn;
                 
             else % if transp. queue stability condition is not met, announce nothing
@@ -202,7 +201,6 @@ for m_incr=1:length(m01) %
             
             if lambda1(p1(ii),p2(jj),lambda) < m01(m_incr)*(1-gamcdf(p1(ii),ag,bg)) % check transp. queue stability condition
                 ER = cc*(1-2*gammainc(lambda2(p1(ii),p2(jj),lambda)/mu2,theta,'upper'));
-%                 ER = cc*(1-2*(igamma(theta(theta_incr),lambda*(p2(jj)/(g1*p1(ii)+p2(jj)))))/gamma(theta(theta_incr)));
                 TotExpProfitRate(ii,jj,lamm)=((1-g1)*lambda1(p1(ii),p2(jj),lambda)*p1(ii)+ ER -lambda2(p1(ii),p2(jj),lambda)*p2(jj))/mn;
                 
             else % if transp. queue stability condition is not met, announce nothing
@@ -224,7 +222,7 @@ zlabel('revenue rate')
 title('Total expected profit rate vs \mu_{01}')
 
 
-% here it extracts the optimal prices from TotExpProfitRate
+% extract the optimal prices from TotExpProfitRate
 LLL=[]; LINEARINDEX=[]; P1=[]; P2=[];
 for LL=1:size(TotExpProfitRate,3);
     [maxValue, linearIndexesOfMaxes] = max(max(TotExpProfitRate(:,:,LL)));
@@ -289,7 +287,6 @@ for c_incr=1:length(cc) %
             
             if lambda1(p1(ii),p2(jj),lambda) <mu1(p1(ii),p2(jj)) % check transp. queue stability condition
                 ER = cc(c_incr)*(1-2*gammainc(lambda2(p1(ii),p2(jj),lambda)/mu2,theta,'upper'));
-%                 ER = cc*(1-2*(igamma(theta(theta_incr),lambda*(p2(jj)/(g1*p1(ii)+p2(jj)))))/gamma(theta(theta_incr)));
                 TotExpProfitRate(ii,jj,lamm)=((1-g1)*lambda1(p1(ii),p2(jj),lambda)*p1(ii)+ ER -lambda2(p1(ii),p2(jj),lambda)*p2(jj))/mn;
                 
             else % if transp. queue stability condition is not met, announce nothing
