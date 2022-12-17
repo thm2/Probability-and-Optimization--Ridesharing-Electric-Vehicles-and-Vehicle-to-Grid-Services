@@ -13,14 +13,11 @@ rA = @(p1, p2) ((L * g*p1 ./ (g*p1 + p2)) .* (1-g) .* p1 ...
     - (L * p2 ./ (g*p1 + p2)) .* p2 ...
     + c * (1 - 2*gammainc(( (L/mu2) * p2 ./ (g*p1 + p2)) , theta, 'upper'))) ;
 
-meshDensity = 35;
-    % For the final version, increase it to 100.
+meshDensity = 100;
 
 h = fsurf(rA, [0 pUpper 0 pUpper],'ShowContours','on','MeshDensity',meshDensity)
 view(-19, 31),
 colormap default
-
-% Uncomment the next four lines for the final version of the figure.
 
 camlight(110,70)
 brighten(0.01)
