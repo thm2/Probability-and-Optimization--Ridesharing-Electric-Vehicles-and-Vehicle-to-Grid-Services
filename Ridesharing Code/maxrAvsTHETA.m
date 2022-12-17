@@ -21,11 +21,6 @@ maxcfp1=1/(1-g1);
 % gamma parameters
 ag=2; bg=1; E=ag*bg;
 
-% axes - first max
-% p1_start=0.01; dt1=0.05; p1_end=maxcfp1*pmax-dt1; p1=linspace(p1_start,p1_end,(p1_end-p1_start)/dt1);
-% p2_start=0.01; dt2=0.05; p2_end=maxcfp2*pmax; p2=linspace(p2_start,p2_end,(p2_end-p2_start)/dt2);
-% l_start=1; dt3=20; l_end=700; lambda=linspace(l_start,l_end,(l_end-l_start)/dt3);
-
 % arrival rates
 lambda1=@(p1,p2,lambda)lambda*(g1*p1/(g1*p1+p2));
 lambda2=@(p1,p2,lambda)lambda*(p2/(g1*p1+p2));
@@ -56,27 +51,6 @@ rA1=zeros(length(p1),length(p2),length(theta));
 
     RAMAX1=[RAMAX1;max(max(RAMAX11))];
 end
-
-
-
-
-% LLL=[]; LINEARINDEX=[]; P1=[]; P2=[]; RAMAX1=[];
-% % here it extracts the optimal prices from TotExpProfitRate
-% for LL=1:size(rA1,3);
-%      [maxValue, linearIndexesOfMaxes] = max(max(rA1(:,:,LL)));
-%     if min(min(isnan((rA1(:,:,LL)))))~=1 % only the non nan exp. rates (they have at least one max) are kept
-%         [rowsOfMaxes, colsOfMaxes] = find(rA1(:,:,LL) == maxValue)
-%         LINEARINDEX=[LINEARINDEX; sub2ind(size(rA1), rowsOfMaxes, colsOfMaxes, LL)];
-%         P1=[P1; p1(rowsOfMaxes)];
-%         P2=[P2; p2(colsOfMaxes)];
-%         LLL=[LLL; LL];
-%     end
-%     % first potential maximum
-%     rAmax1=maxValue;
-%     RAMAX1=[RAMAX1; rAmax1];
-% end
-
-
 
 
 %%%% Seconnd search space
@@ -142,31 +116,19 @@ PMAX2=[PMAX2; p2max2 p1max2];
 RAMAX2=[RAMAX2;rAmax2];
 end
 RMAX=[RMAX;max(RAMAX1,RAMAX2)];
-% P11=[P11; P1]
-% P22=[P22;P2]
 end
 
 
 figure
-% plot(c,RMAX(1:length(c)),c,RMAX(length(c)+1:2*length(c)),c,RMAX(2*length(c)+1:3*length(c)),'LineWidth',3,strcat('$\lambda =$',num2str(8)))
 plot(theta,RMAX(1:length(theta)),'r','LineWidth',3,'DisplayName',strcat('$\lambda =$',num2str(8)))
 hold on
 plot(theta,RMAX(length(theta)+1:2*length(theta)),'b','LineWidth',3, 'DisplayName', strcat('$\lambda =$',num2str(10)))
 hold on
 plot(theta,RMAX(2*length(theta)+1:3*length(theta)),'k','LineWidth',3,'DisplayName',strcat('$\lambda =$',num2str(12)))
 hold on
-% plot(c,RMAX(3*length(c)+1:4*length(c)),'LineWidth',3)
 xlabel('$\theta$', 'Interpreter', 'Latex', 'Fontsize', 20)
 ylabel('$r_{\mathbf A}^*$', 'Interpreter', 'Latex', 'Fontsize', 20),
 title('Optimal $r_{\bf A}$ versus threshold $\theta$', 'Interpreter', 'Latex', 'Fontsize', 17)
-% leg = legend(gca, 'show'), set(leg, 'fontsize',18, 'Interpreter','latex') % for dispname
 grid on
 
 saveas(gcf,'../Figures/maxrA_vs_theta.png')
-
-% plot(theta,max(RAMAX1,RAMAX2),'LineWidth',3)
-% xlabel('$\theta$', 'Interpreter', 'Latex', 'Fontsize', 24)
-% ylabel('$r_{\mathbf A}(p_1, p_2)$', 'Interpreter', 'Latex', 'Fontsize', 24),
-% title('Total expected reward rate versus contract threshold', 'Interpreter', 'Latex', 'Fontsize', 16)
-% grid on
-% saveas(gcf,'../Figures/maxrAvstheta.pdf','epsc')
