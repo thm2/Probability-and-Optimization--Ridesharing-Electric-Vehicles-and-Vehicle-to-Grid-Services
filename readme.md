@@ -1,7 +1,7 @@
 # Project Description
 
 ## Industry trends
-Electric vehicles are increasing in number over the recent years. Electrification of urban transportation is on the rise. In April 2016, ridesharing company Teo Taxi launched a plug-in electric vehicle (PEV) fleet followed four months later by
+Electric vehicles are increasing in number over the recent years. In April 2016, ridesharing company Teo Taxi launched a plug-in electric vehicle (PEV) fleet followed four months later by
 Uber. In 2020 Volkswagen will start a fully-electric carsharing platform, whereas other companies such as BMW already provide such a service. When driven, an electric vehicle garners profit for the platform through transportation. When parked, it can act as a controllable storage device either consuming surplus or injecting energy to the grid. Hence, managed PEV fleets provide unique grid-support opportunities, and added profits to the platform through vehicle-to-grid services.
 
 ## Vehicle-to-Grid services
